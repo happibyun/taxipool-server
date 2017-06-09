@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="RoomMapper">
+ <insert id="insert" parameterType="Room">
+	 INSERT INTO room
+	    (admin_id, 
+	    max_cnt, 
+	    payment, 
+	    room_gender, 
+	    alcohol, 
+	    start_spot, 
+	    end_spot, 
+	    start_x, 
+	    start_y, 
+	    end_x, 
+	    end_y, 
+	    start_time, 
+	    room_state)
+	VALUES
+	    (#{admin_id}, 
+	    #{max_cnt}, 
+	    #{payment}, 
+	    #{room_gender}, 
+	    #{alcohol}, 
+	    #{start_spot}, 
+	    #{end_spot}, 
+	    #{start_x}, 
+	    #{start_y} , 
+	    #{end_x}, 
+	    #{end_y}, 
+	    NOW(), 
+	    #{room_state});		
+ </insert>
+ </mapper>
+  

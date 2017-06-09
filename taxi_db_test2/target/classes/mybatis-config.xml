@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<!--   <properties resource="config.properties">
+  	<property name="username" value="test2"/>
+  </properties> -->
+  <typeAliases>
+ 	<typeAlias alias="CustomerInfo" type="com.my.vo.CustomerInfo"/>
+ 	<typeAlias alias="Room" type="com.my.vo.Room"/>
+ 	<typeAlias alias="Block" type="com.my.vo.Block"/>
+ 	<typeAlias alias="PointRecord" type="com.my.vo.PointRecord"/>
+  </typeAliases>
+   <mappers>
+   	<mapper resource="BlockMapper.xml"/>
+   	<mapper resource="RoomMapper.xml"/>
+   	<mapper resource="CustomerInfoMapper.xml"/>
+   	<mapper resource="TestMapper.xml"/>
+  </mappers>
+</configuration>

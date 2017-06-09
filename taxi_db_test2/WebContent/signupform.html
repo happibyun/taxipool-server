@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>signupform.html</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+  $(function(){
+	 var $form = $('form');
+	 var $button = $('button');
+	 var $id = $("input[name=id]"); 
+	 $id.focus(function(){
+		 $("input[type=submit]").hide();
+	 });
+	 $button.click(function(){	
+		 if($id.val().trim().length == 0){
+			 alert('ID를 입력하세요');
+			 $id.focus();
+			 return false;
+		 }
+		 $.ajax({url:"dupchkid.do",
+			    data:{'id': $id.val()},
+			    method:'post',
+			    success:function(responseData){
+			    	var result = responseData.trim();
+			    	if(result == '1'){ //아이디가 없는 경우
+					  $("input[type=submit]").show();	    		
+			    	}else if(result == '-1'){
+			    		alert('이미 존재하는 아이디입니다');
+			    	}else{
+			    		alert(result+"결과없음");
+			    	}
+			    }, 
+			    error:function(xhr, status, error){
+			    	alert("오류: status=" + xhr.status);
+			    }
+		 });
+		 return false;
+	 }); 
+     $form.submit(function(){
+		var $pwd = $("input[name=pwd]");
+		var $pwd1 = $("input[name=pwd1]");	
+		if($pwd.val() != $pwd1.val()){
+			alert('비밀번호가 다릅니다.');
+			return false;//기본이벤트막기 e.preventDefault();
+		}
+		$form.attr("action", "signup.do"); //-->jquery함수
+		var $action = $form.attr("action"); //signup.do
+		var $data = $form.serialize();
+		$.ajax({ url : $action,
+		         data : $data
+		         /*  {id: $("input[name=id]").val(),
+		        	  pwd: $pwd.val(),
+		        	  name: $("input[name=name]").val()
+		        	 } */,
+			     method:'POST',		        
+		         success: function(responseData){		        	
+		        	 var result = responseData.trim();
+		        	 if(result == '1'){
+		        		 alert('가입성공');			        		 
+		        	 }else{
+		        		 alert(result);
+		        	 }
+		         },
+		         error: function(xhr,status,error ){
+		        	 console.log("ERROR:" + status + "," + error);
+		         }
+		});
+		return false;
+	});
+  });
+</script>
+<style>
+div>form>input[type=submit]{display:none;}
+</style>
+</head>
+<body>
+<div>
+<form method="post"> 
+  ID : <input type="text" name="id" required>
+       <button>중복확인</button>       
+       <br>
+  비밀번호 : <input type="password" name="pwd" required><br>
+  비밀번호확인: <input type="password" name="pwd1" required><br>
+  
+  NAME : <input type="text" name="name" required><br>
+  우편번호 : <div class="zip"></div>
+  <input type="submit" value="가입하기"> 
+</form>
+</div>
+</body>
+</html>
